@@ -1,0 +1,68 @@
+-- RIVALS NEON PURPLE + CLEAN MIRROR + NEON MOON
+local Lighting = game:GetService("Lighting")
+local Terrain = workspace:FindFirstChildOfClass("Terrain")
+
+for _,v in pairs(Lighting:GetChildren()) do
+	if v:IsA("Sky") or v:IsA("Atmosphere") or v:IsA("BloomEffect") or v:IsA("ColorCorrectionEffect") then
+		v:Destroy()
+	end
+end
+
+task.wait(0.1)
+
+local sky = Instance.new("Sky")
+sky.SkyboxBk = "rbxassetid://151165214"
+sky.SkyboxDn = "rbxassetid://151165197"
+sky.SkyboxFt = "rbxassetid://151165224"
+sky.SkyboxLf = "rbxassetid://151165191"
+sky.SkyboxRt = "rbxassetid://151165206"
+sky.SkyboxUp = "rbxassetid://151165227"
+sky.MoonAngularSize = 20
+sky.MoonTextureId = "rbxassetid://6444320592"
+sky.SunAngularSize = 0
+sky.Parent = Lighting
+
+Lighting.Changed:Connect(function()
+	if not Lighting:FindFirstChildOfClass("Sky") then
+		sky:Clone().Parent = Lighting
+	end
+end)
+
+Lighting.ClockTime = 19.1
+Lighting.Brightness = 2.3
+Lighting.ExposureCompensation = 0.35
+Lighting.EnvironmentDiffuseScale = 1
+Lighting.EnvironmentSpecularScale = 1
+Lighting.Ambient = Color3.fromRGB(135, 110, 190)
+Lighting.OutdoorAmbient = Color3.fromRGB(120, 95, 175)
+
+local atmo = Instance.new("Atmosphere")
+atmo.Density = 0.33
+atmo.Offset = 0.28
+atmo.Color = Color3.fromRGB(195, 150, 240)
+atmo.Decay = Color3.fromRGB(105, 80, 155)
+atmo.Parent = Lighting
+
+local cc = Instance.new("ColorCorrectionEffect")
+cc.Contrast = 0.32
+cc.Saturation = 0.02
+cc.TintColor = Color3.fromRGB(230, 215, 255)
+cc.Parent = Lighting
+
+local bloom = Instance.new("BloomEffect")
+bloom.Intensity = 1.6
+bloom.Size = 70
+bloom.Threshold = 0.7
+bloom.Parent = Lighting
+
+if Terrain then
+	Terrain.WaterColor = Color3.fromRGB(10, 8, 16)
+	Terrain.WaterTransparency = 0.06
+	Terrain.WaterReflectance = 1
+	Terrain.WaterWaveSize = 0
+	Terrain.WaterWaveSpeed = 0
+end
+
+Lighting.FogColor = Color3.fromRGB(22, 16, 36)
+Lighting.FogStart = 0
+Lighting.FogEnd = 420
